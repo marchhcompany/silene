@@ -311,6 +311,7 @@
   .sociais a:hover{background:var(--lilas);border-color:var(--lilas)}
   .sociais svg{width:18px;height:18px;fill:#fff}
   .rodape-base{border-top:1px solid rgba(255,255,255,.1);padding-block:28px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:12px;font-size:.8rem;color:rgba(255,255,255,.45)}
+  .rodape-base a{display:inline-block;padding:12px 4px;margin:-12px -4px}
   .rodape-grande{font:italic 400 clamp(3.4rem,11vw,10rem)/.9 'Cormorant Garamond',serif;color:rgba(255,255,255,.06);white-space:nowrap;text-align:center;margin-bottom:-.12em;user-select:none}
 
   .wa-fixo{position:fixed;right:22px;bottom:22px;z-index:40;width:60px;height:60px;border-radius:50%;background:#25D366;display:grid;place-items:center;box-shadow:0 12px 30px -8px rgba(37,211,102,.6);transition:transform .3s var(--ease)}
@@ -537,7 +538,7 @@
     <a class="btn btn-cheio" href="https://wa.me/5521997576673?text=Ol%C3%A1%2C%20Silene!%20Vi%20seu%20site%20e%20gostaria%20de%20agendar%20um%20hor%C3%A1rio." target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24" aria-hidden="true"><use href="#ico-wa"/></svg>Agendar horário
     </a>
-    <button class="burger" id="burger" aria-label="Abrir menu" aria-controls="menu"><i></i><i></i></button>
+    <button class="burger" id="burger" aria-label="Abrir menu" aria-controls="menu" aria-expanded="false"><i></i><i></i></button>
   </div>
 </header>
 
@@ -921,8 +922,8 @@
 
   // menu celular
   var burger = document.getElementById('burger');
-  burger.addEventListener('click', function(){ document.body.classList.toggle('menu-aberto'); });
-  document.querySelectorAll('#menu a').forEach(function(a){ a.addEventListener('click', function(){ document.body.classList.remove('menu-aberto'); }); });
+  burger.addEventListener('click', function(){ var aberto = document.body.classList.toggle('menu-aberto'); burger.setAttribute('aria-expanded', aberto); });
+  document.querySelectorAll('#menu a').forEach(function(a){ a.addEventListener('click', function(){ document.body.classList.remove('menu-aberto'); burger.setAttribute('aria-expanded', false); }); });
 
   // animações de entrada
   var alvos = document.querySelectorAll('.rv, .rv-img');
@@ -1040,7 +1041,7 @@
     img.addEventListener('click', function(){ lbImg.src = img.src; lbImg.alt = img.alt; lb.classList.add('on'); document.body.style.overflow = 'hidden'; });
   });
   lb.addEventListener('click', fechaLb);
-  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { fechaLb(); document.body.classList.remove('menu-aberto'); } });
+  document.addEventListener('keydown', function(e){ if (e.key === 'Escape') { fechaLb(); document.body.classList.remove('menu-aberto'); burger.setAttribute('aria-expanded', false); } });
 
   // setas dos depoimentos
   var trilho = document.getElementById('depoTrilho');
